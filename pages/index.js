@@ -3,6 +3,7 @@ import { useState } from "react";
 
 export default function Home() {
   const [input, setInput] = useState("");
+  const [result, setResult] = useState();
 
   const handleInput = (e) => {
     setInput(e.target.value);
@@ -25,6 +26,7 @@ export default function Home() {
           new Error(`Request failed with status ${response.staus}`)
         );
       }
+      setResult(data.result);
       setInput("");
     } catch (error) {
       console.error(error);
@@ -37,20 +39,21 @@ export default function Home() {
       <Head>
         <title>Name My Pet</title>
         <meta name="description" content="OpenAI + ChatGPT App" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
+        <img src="/favicon.ico" alt="favicon" />
         <h3>Name my pet</h3>
         <form onSubmit={onSubmit}>
           <input
             type="text"
-            name="nameinput"
+            name="pet"
             value={input}
             onChange={handleInput}
             placeholder="반려동물을 입력"
           />
           <button type="submit">이름 만들기</button>
         </form>
+        <div>{result}</div>
       </main>
     </div>
   );
