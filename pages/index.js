@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { useState } from "react";
+import styles from "./index.module.css";
 
 export default function Home() {
   const [input, setInput] = useState("");
@@ -35,12 +36,12 @@ export default function Home() {
   };
 
   return (
-    <div>
+    <div className={styles.wrapper}>
       <Head>
         <title>Name My Pet</title>
         <meta name="description" content="OpenAI + ChatGPT App" />
       </Head>
-      <main>
+      <main className={styles.main}>
         <img src="/favicon.ico" alt="favicon" />
         <h3>Name my pet</h3>
         <form onSubmit={onSubmit}>
@@ -53,7 +54,7 @@ export default function Home() {
           />
           <button type="submit">이름 만들기</button>
         </form>
-        <div>{result}</div>
+        <div className={styles.result}>{result}</div>
       </main>
     </div>
   );
