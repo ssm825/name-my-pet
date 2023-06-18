@@ -4,10 +4,16 @@ import styles from "./index.module.css";
 
 export default function Home() {
   const [input, setInput] = useState("");
+  const [language, setLanguage] = useState("");
   const [result, setResult] = useState();
 
   const handleInput = (e) => {
     setInput(e.target.value);
+  };
+
+  const handleLanguage = (e) => {
+    e.target.textContent === "한글" && setLanguage("korean");
+    e.target.textContent === "영어" && setLanguage("english");
   };
 
   const onSubmit = async (e) => {
@@ -17,7 +23,7 @@ export default function Home() {
       const response = await fetch("/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ pet: input }),
+        body: JSON.stringify({ pet: input, language }),
       });
 
       const data = await response.json();
@@ -45,6 +51,22 @@ export default function Home() {
         <img src="/favicon.ico" alt="favicon" />
         <h3>Name my pet</h3>
         <form onSubmit={onSubmit}>
+          <article>
+            <button
+              type="button"
+              className={language === "korean" ? styles.select : ""}
+              onClick={handleLanguage}
+            >
+              한글
+            </button>
+            <button
+              type="button"
+              className={language === "english" ? styles.select : ""}
+              onClick={handleLanguage}
+            >
+              영어
+            </button>
+          </article>
           <input
             type="text"
             name="pet"

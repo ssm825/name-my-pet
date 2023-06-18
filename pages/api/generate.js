@@ -17,7 +17,8 @@ export default async function (req, res) {
     });
     return;
   }
-
+  console.log(req.body);
+  const language = req.body.language || "";
   const pet = req.body.pet || "";
   if (pet.trim().length === 0) {
     res.status(400).json({
@@ -31,7 +32,7 @@ export default async function (req, res) {
   try {
     const response = await openai.createCompletion({
       model: "text-davinci-003",
-      prompt: `suggest three pet names for the follow ${pet}`,
+      prompt: `suggest three pet ${language} names that will be our family for the follow ${pet}`,
       temperature: 0.8,
       max_tokens: 100,
     });

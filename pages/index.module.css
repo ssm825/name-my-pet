@@ -25,6 +25,12 @@
   color: #353740;
   outline: none;
 }
+
+.main input,
+.main button {
+  transition: all 0.2s;
+  box-shadow: 5px 5px 5px rgba(70, 88, 83, 0.1);
+}
 .main img {
   width: 34px;
 }
@@ -33,18 +39,38 @@
   line-height: 48px;
   font-weight: 800;
   color: #202123;
-  margin: 16px 0 40px;
+  margin: 16px 0 60px;
 }
 .main form {
   display: flex;
   flex-direction: column;
   width: 320px;
 }
+
+.main article {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.main article button {
+  width: 48%;
+  background-color: #bebebe;
+}
+
+/* .main article button:hover {
+  background-color: #6ebae7;
+} */
+
+.main article .select {
+  background-color: #6ebae7;
+}
+
 .main input[type="text"] {
   padding: 12px 16px;
   border: 1px solid #6ebae7;
   border-radius: 20px;
-  margin-bottom: 24px;
+  margin-bottom: 50px;
 }
 .main ::placeholder {
   color: #b0b0b0;
