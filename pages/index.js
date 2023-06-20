@@ -1,43 +1,58 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import useForm from "./hooks/useForm";
 import styles from "./index.module.css";
 
 export default function Home() {
-  const [input, setInput] = useState("");
   const [language, setLanguage] = useState("");
-  const [result, setResult] = useState();
+  const [result, setResult] = useState("");
 
-  const handleInput = (e) => {
-    setInput(e.target.value);
-  };
+  const petNameInput = useForm({
+    pet: "",
+  });
+  const selectLanguage = useForm("");
 
-  const handleLanguage = (e) => {
-    e.target.textContent === "한글" && setLanguage("korean");
-    e.target.textContent === "영어" && setLanguage("english");
-  };
+  const { inputValue, setInputValue, handleChange } = petNameInput;
+  const { text, handleText } = selectLanguage;
+
+  useEffect(() => {
+    text === "한글" && setLanguage("korean");
+    text === "영어" && setLanguage("english");
+  }, [text]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await fetch("/api/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ pet: input, language }),
-      });
+    const isLanguageValid = selectLanguage.validate(
+      (language) => language !== "",
+      "* 필수 선택항목입니다."
+    );
+    const isPetNameValid = petNameInput.validate(
+      (inputValue) => inputValue.pet !== "",
+      "* 필수 입력항목입니다."
+    );
 
-      const data = await response.json();
-      if (response.status !== 200) {
-        throw (
-          data.error ||
-          new Error(`Request failed with status ${response.staus}`)
-        );
+    if (isPetNameValid && isLanguageValid) {
+      try {
+        const response = await fetch("/api/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ pet: inputValue.pet, language }),
+        });
+
+        const data = await response.json();
+        if (response.status !== 200) {
+          throw (
+            data.error ||
+            new Error(`Request failed with status ${response.staus}`)
+          );
+        }
+        setResult(data.result);
+        setInputValue("");
+      } catch (error) {
+        console.error(error);
+        alert(error.message);
       }
-      setResult(data.result);
-      setInput("");
-    } catch (error) {
-      console.error(error);
-      alert(error.message);
     }
   };
 
@@ -52,28 +67,43 @@ export default function Home() {
         <h3>Name my pet</h3>
         <form onSubmit={onSubmit}>
           <article>
-            <button
-              type="button"
-              className={language === "korean" ? styles.select : ""}
-              onClick={handleLanguage}
-            >
-              한글
-            </button>
-            <button
-              type="button"
-              className={language === "english" ? styles.select : ""}
-              onClick={handleLanguage}
-            >
-              영어
-            </button>
+            <h4 className={styles.title}>한글 또는 영어를 선택해 주세요.</h4>
+            <div className={styles.button_box}>
+              <button
+                type="button"
+                className={text === "한글" ? styles.select : ""}
+                onClick={handleText}
+              >
+                한글
+              </button>
+              <button
+                type="button"
+                className={text === "영어" ? styles.select : ""}
+                onClick={handleText}
+              >
+                영어
+              </button>
+            </div>
+            <div className={styles.error}>
+              {selectLanguage.error && <p>{selectLanguage.error}</p>}
+            </div>
           </article>
-          <input
-            type="text"
-            name="pet"
-            value={input}
-            onChange={handleInput}
-            placeholder="반려동물을 입력"
-          />
+          <article>
+            <h4 className={styles.title}>
+              당신의 반려동물에 대해 자세히 적어주세요.
+            </h4>
+            <input
+              type="text"
+              name="pet"
+              value={inputValue.pet || ""}
+              onChange={handleChange}
+              placeholder="예시) 꼬리가 통통한 검은 고양이"
+            />
+            <div className={styles.error}>
+              {petNameInput.error && <p>{petNameInput.error}</p>}
+            </div>
+          </article>
+
           <button type="submit">이름 만들기</button>
         </form>
         <div className={styles.result}>{result}</div>
