@@ -17,7 +17,7 @@ export default async function (req, res) {
     });
     return;
   }
-  console.log(req.body);
+
   const language = req.body.language || "";
   const pet = req.body.pet || "";
   if (pet.trim().length === 0) {
