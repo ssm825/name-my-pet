@@ -1,11 +1,15 @@
 import Head from "next/head";
 import { useCallback, useEffect, useState } from "react";
+import Loading from "./Component/Loading";
 import useForm from "./hooks/useForm";
 import styles from "./index.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaw } from "@fortawesome/free-solid-svg-icons";
 
 export default function Home() {
   const [language, setLanguage] = useState("");
   const [result, setResult] = useState("");
+  const [loading, setLoading] = useState(null);
 
   const petNameInput = useForm({
     pet: "",
@@ -21,9 +25,16 @@ export default function Home() {
   }, [text]);
 
   const handleModal = () => {
+    setLoading(true);
+    let timer = setTimeout(() => {
+      setLoading(false);
+    }, 300);
     setInputValue("");
     setText("");
     setResult("");
+    return () => {
+      clearTimeout(timer);
+    };
   };
 
   const onSubmit = async (e) => {
@@ -39,6 +50,7 @@ export default function Home() {
     );
 
     if (isPetNameValid && isLanguageValid) {
+      setLoading(true);
       try {
         const response = await fetch("/api/generate", {
           method: "POST",
@@ -53,6 +65,7 @@ export default function Home() {
             new Error(`Request failed with status ${response.staus}`)
           );
         }
+        setLoading(false);
         setResult(data.result);
       } catch (error) {
         console.error(error);
@@ -68,6 +81,7 @@ export default function Home() {
         <meta name="description" content="OpenAI + ChatGPT App" />
       </Head>
       <main className={styles.main}>
+        <FontAwesomeIcon icon={faPaw} />
         <div className={styles.main_title}>
           <h3>Name my pet</h3>
           <p className={styles.ko_title}>반려동물 이름 랜덤 생성</p>
@@ -110,17 +124,25 @@ export default function Home() {
               {petNameInput.error && <p>{petNameInput.error}</p>}
             </div>
           </article>
-
           <button type="submit">이름 만들기</button>
         </form>
-        {result && (
+        {(loading || result) && (
           <div className={styles.result_wrapper}>
             <div className={styles.result}>
-              <div>
-                <span>{inputValue.pet}</span>와(과) 어울리는 {text} 이름은!
-              </div>
-              <pre>{result}</pre>
-              <button onClick={handleModal}>다시 찾기</button>
+              {loading && <Loading />}
+              {result && (
+                <>
+                  <div>
+                    <span>{inputValue.pet}</span>와(과) 어울리는 {text} 이름은!
+                  </div>
+                  <pre>{result}</pre>
+                  {loading ? (
+                    <Loading />
+                  ) : (
+                    <button onClick={handleModal}>다시 찾기</button>
+                  )}
+                </>
+              )}
             </div>
           </div>
         )}
