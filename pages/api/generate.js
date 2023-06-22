@@ -20,14 +20,6 @@ export default async function (req, res) {
 
   const language = req.body.language || "";
   const pet = req.body.pet || "";
-  if (pet.trim().length === 0) {
-    res.status(400).json({
-      error: {
-        message: "반려동물을 입력해 주세요!",
-      },
-    });
-    return;
-  }
 
   try {
     const response = await openai.createCompletion({
