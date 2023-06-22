@@ -28,6 +28,7 @@ const useForm = (initialValue) => {
     inputValue,
     setInputValue,
     text,
+    setText,
     handleText,
     error,
     handleChange,

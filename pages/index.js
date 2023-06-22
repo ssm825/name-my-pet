@@ -13,12 +13,18 @@ export default function Home() {
   const selectLanguage = useForm("");
 
   const { inputValue, setInputValue, handleChange } = petNameInput;
-  const { text, handleText } = selectLanguage;
+  const { text, setText, handleText } = selectLanguage;
 
   useEffect(() => {
     text === "한글" && setLanguage("korean");
     text === "영어" && setLanguage("english");
   }, [text]);
+
+  const handleModal = () => {
+    setInputValue("");
+    setText("");
+    setResult("");
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -48,7 +54,6 @@ export default function Home() {
           );
         }
         setResult(data.result);
-        setInputValue("");
       } catch (error) {
         console.error(error);
         alert(error.message);
@@ -63,8 +68,10 @@ export default function Home() {
         <meta name="description" content="OpenAI + ChatGPT App" />
       </Head>
       <main className={styles.main}>
-        <img src="/favicon.ico" alt="favicon" />
-        <h3>Name my pet</h3>
+        <div className={styles.main_title}>
+          <h3>Name my pet</h3>
+          <p className={styles.ko_title}>반려동물 이름 랜덤 생성</p>
+        </div>
         <form onSubmit={onSubmit}>
           <article>
             <h4 className={styles.title}>한글 또는 영어를 선택해 주세요.</h4>
@@ -106,7 +113,17 @@ export default function Home() {
 
           <button type="submit">이름 만들기</button>
         </form>
-        <div className={styles.result}>{result}</div>
+        {result && (
+          <div className={styles.result_wrapper}>
+            <div className={styles.result}>
+              <div>
+                <span>{inputValue.pet}</span>와(과) 어울리는 {text} 이름은!
+              </div>
+              <pre>{result}</pre>
+              <button onClick={handleModal}>다시 찾기</button>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );
