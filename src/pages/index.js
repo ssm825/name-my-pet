@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useCallback, useEffect, useState } from "react";
-import Loading from "./Component/Loading";
-import useForm from "./hooks/useForm";
+import Loading from "../component/Loading";
+import useForm from "../hooks/useForm";
 import styles from "./index.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaw } from "@fortawesome/free-solid-svg-icons";
