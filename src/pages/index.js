@@ -2,9 +2,10 @@ import Head from "next/head";
 import { useCallback, useEffect, useState } from "react";
 import Loading from "../component/Loading";
 import useForm from "../hooks/useForm";
-import styles from "./index.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaw } from "@fortawesome/free-solid-svg-icons";
+import * as Style from "./index.styles";
+import { montserrat, notoSansKr } from "../styles/fonts";
 
 export default function Home() {
   const [language, setLanguage] = useState("");
@@ -75,60 +76,62 @@ export default function Home() {
   };
 
   return (
-    <div className={styles.wrapper}>
+    <Style.Wrapper className={notoSansKr.className}>
       <Head>
         <title>Name My Pet</title>
         <meta name="description" content="OpenAI + ChatGPT App" />
       </Head>
-      <main className={styles.main}>
+      <Style.Main>
         <FontAwesomeIcon icon={faPaw} />
-        <div className={styles.main_title}>
-          <h3>Name my pet</h3>
-          <p className={styles.ko_title}>반려동물 이름 랜덤 생성</p>
-        </div>
-        <form onSubmit={onSubmit}>
+        <Style.MainTitle>
+          <h3 className={`en_title ${montserrat.className}`}>Name my pet</h3>
+          <p className="ko_title">반려동물 이름 랜덤 생성</p>
+        </Style.MainTitle>
+        <Style.Form onSubmit={onSubmit}>
           <article>
-            <h4 className={styles.title}>한글 또는 영어를 선택해 주세요.</h4>
-            <div className={styles.button_box}>
-              <button
+            <Style.ContentTitle>
+              한글 또는 영어를 선택해 주세요.
+            </Style.ContentTitle>
+            <Style.SelectLanguageBox>
+              <Style.SelectLaguageButton
                 type="button"
-                className={text === "한글" ? styles.select : ""}
+                className={text === "한글" ? "select" : ""}
                 onClick={handleText}
               >
                 한글
-              </button>
-              <button
+              </Style.SelectLaguageButton>
+              <Style.SelectLaguageButton
                 type="button"
-                className={text === "영어" ? styles.select : ""}
+                className={text === "영어" ? "select" : ""}
                 onClick={handleText}
               >
                 영어
-              </button>
-            </div>
-            <div className={styles.error}>
+              </Style.SelectLaguageButton>
+            </Style.SelectLanguageBox>
+            <Style.Error>
               {selectLanguage.error && <p>{selectLanguage.error}</p>}
-            </div>
+            </Style.Error>
           </article>
           <article>
-            <h4 className={styles.title}>
+            <Style.ContentTitle>
               당신의 반려동물에 대해 자세히 적어주세요.
-            </h4>
-            <input
+            </Style.ContentTitle>
+            <Style.PetDetailInput
               type="text"
               name="pet"
               value={inputValue.pet || ""}
               onChange={handleChange}
               placeholder="예시) 꼬리가 통통한 검은 고양이"
             />
-            <div className={styles.error}>
+            <Style.Error>
               {petNameInput.error && <p>{petNameInput.error}</p>}
-            </div>
+            </Style.Error>
           </article>
-          <button type="submit">이름 만들기</button>
-        </form>
+          <Style.Button type="submit">이름 만들기</Style.Button>
+        </Style.Form>
         {(loading || result) && (
-          <div className={styles.result_wrapper}>
-            <div className={styles.result}>
+          <Style.Modal>
+            <Style.Result>
               {loading && <Loading />}
               {result && (
                 <>
@@ -139,14 +142,14 @@ export default function Home() {
                   {loading ? (
                     <Loading />
                   ) : (
-                    <button onClick={handleModal}>다시 찾기</button>
+                    <Style.Button onClick={handleModal}>다시 찾기</Style.Button>
                   )}
                 </>
               )}
-            </div>
-          </div>
+            </Style.Result>
+          </Style.Modal>
         )}
-      </main>
-    </div>
+      </Style.Main>
+    </Style.Wrapper>
   );
 }
