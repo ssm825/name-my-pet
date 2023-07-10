@@ -46,7 +46,6 @@ export const MainTitle = styled.div`
 export const Form = styled.form`
   ${(props) => props.theme.flex("column", "", "")};
   padding: 38px;
-  width: 380px;
   background-color: white;
   border-radius: 20px;
   box-shadow: 8px 8px 20px rgba(70, 88, 83, 0.05);
