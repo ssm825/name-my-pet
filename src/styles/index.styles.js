@@ -115,6 +115,7 @@ export const Result = styled.div`
   margin-top: 40px;
   padding: 75px 35px;
   width: 380px;
+  min-height: 250px;
   background-color: white;
   border-radius: 20px;
   box-shadow: 8px 8px 20px rgba(70, 88, 83, 0.05);
@@ -129,4 +130,9 @@ export const Result = styled.div`
     width: 100%;
     margin-top: 50px;
   }
+`;
+
+export const LoadingWrapper = styled.div`
+  ${(props) => props.theme.flex("", "center", "center")}
+  min-height: 100px;
 `;

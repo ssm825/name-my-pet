@@ -6,7 +6,7 @@ import ResponsiveContainer from "../component/ResponsiveContainer";
 import { montserrat, notoSansKr } from "../styles/fonts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaw } from "@fortawesome/free-solid-svg-icons";
-import * as Style from "./index.styles";
+import * as Style from "../styles/index.styles";
 
 export default function Home() {
   const [language, setLanguage] = useState("");
@@ -134,7 +134,11 @@ export default function Home() {
           {(loading || result) && (
             <Style.Modal>
               <Style.Result>
-                {loading && <Loading />}
+                {loading && Style.LoadingWrapper && (
+                  <Style.LoadingWrapper>
+                    <Loading />
+                  </Style.LoadingWrapper>
+                )}
                 {result && (
                   <>
                     <div>
