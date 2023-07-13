@@ -1,7 +1,7 @@
 import React from "react";
 import useResponsive from "../hooks/useResponsive";
 import styled from "styled-components";
-import { Result } from "../pages/index.styles";
+import { Result } from "../styles/index.styles";
 
 const Container = styled.div`
   main {
@@ -11,13 +11,18 @@ const Container = styled.div`
     font-size: ${({ $isMobile }) => $isMobile && "36px"};
     line-height: ${({ $isMobile }) => $isMobile && "42px"};
   }
+
   form {
     padding: ${({ $isTablet }) => $isTablet && "50px"};
-    width: ${({ $isTablet }) => $isTablet && "100%"};
+    width: ${({ $isTablet }) => $isTablet && "80%"};
   }
 
   Button {
-    padding: ${({ $isTablet }) => $isTablet && "15px 0"};
+    padding: ${({ $isTablet }) => $isTablet && "13px 0"};
+  }
+
+  input {
+    padding: ${({ $isTablet }) => $isTablet && "13px 16px"};
   }
 
   ${Result} {
