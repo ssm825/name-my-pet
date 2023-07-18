@@ -17,6 +17,13 @@ const useForm = (initialValue) => {
   };
 
   const validate = (validateFunc, errorMessage) => {
+    const regExp = /^[^0-9!@#$%^&*()-=_+{}\[\]|\\~;:'",.<>\/?]+$/;
+    const inputStr = Object.values(inputValue)[0];
+    if (inputStr && !regExp.test(inputStr)) {
+      setError("* 숫자와 기호를 제외한 단어를 입력해 주세요.");
+      return false;
+    }
+
     if (!validateFunc(inputValue || text)) {
       setError(errorMessage);
       return false;
