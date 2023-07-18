@@ -1,20 +1,30 @@
 import React from "react";
 import useResponsive from "../hooks/useResponsive";
 import styled from "styled-components";
-import { Result } from "../styles/index.styles";
+import { css } from "styled-components";
+import { Result } from "../pages/Main/Main.styles";
 
 const Container = styled.div`
   main {
     width: ${({ $isTablet }) => $isTablet && "60%"};
   }
   .en_title {
-    font-size: ${({ $isMobile }) => $isMobile && "36px"};
-    line-height: ${({ $isMobile }) => $isMobile && "42px"};
+    ${({ $isMobile }) =>
+      $isMobile &&
+      css`
+        font-size: 36px;
+        line-height: 42px;
+      `};
   }
 
   form {
-    padding: ${({ $isTablet }) => $isTablet && "50px"};
-    width: ${({ $isTablet }) => $isTablet && "80%"};
+    ${({ $isTablet }) =>
+      $isTablet &&
+      css`
+        padding: 50px;
+        width: 80%;
+      `};
+    padding: ${({ $isMobile }) => $isMobile && "35px"};
   }
 
   Button {
@@ -23,11 +33,15 @@ const Container = styled.div`
 
   input {
     padding: ${({ $isTablet }) => $isTablet && "13px 16px"};
+    ::placeholder {
+      font-size: ${({ $isMobile }) => $isMobile && "12px"};
+    }
   }
 
   ${Result} {
     width: ${({ $isTablet, $isMobile }) =>
       $isTablet ? "450px" : $isMobile ? "85%" : "380px"};
+    padding: ${({ $isMobile }) => $isMobile && "70px 20px"};
   }
 `;
 
