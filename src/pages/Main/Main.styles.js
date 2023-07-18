@@ -14,7 +14,7 @@ export const Wrapper = styled.div`
 
 export const Main = styled.main`
   &&& {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     line-height: 20px;
   }
@@ -32,8 +32,8 @@ export const MainTitle = styled.div`
   margin-bottom: 25px;
   text-align: center;
   .en_title {
-    font-size: 40px;
-    line-height: 48px;
+    font-size: 44px;
+    line-height: 58px;
     font-weight: 800;
     color: ${(props) => props.theme.color.mainBlack};
   }
@@ -45,7 +45,7 @@ export const MainTitle = styled.div`
 
 export const Form = styled.form`
   ${(props) => props.theme.flex("column", "", "")};
-  padding: 38px;
+  padding: 45px 40px;
   background-color: white;
   border-radius: 20px;
   box-shadow: 8px 8px 20px rgba(70, 88, 83, 0.05);
@@ -55,7 +55,7 @@ export const Form = styled.form`
 `;
 
 export const ContentTitle = styled.h4`
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   color: ${(props) => props.theme.color.mainBlack};
 `;
 
@@ -64,7 +64,7 @@ export const SelectLanguageBox = styled.div`
 `;
 
 export const Button = styled.button`
-  padding: 10px 0;
+  padding: 12px 0;
   color: white;
   background-color: ${(props) => props.theme.color.mainBlue};
   border: none;
@@ -125,6 +125,9 @@ export const Result = styled.div`
   span {
     color: ${(props) => props.theme.color.mainBlue};
     font-weight: 900;
+  }
+  pre {
+    line-height: 26px;
   }
   button {
     width: 100%;
