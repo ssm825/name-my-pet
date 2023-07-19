@@ -1,6 +1,6 @@
 import Head from "next/head";
 import ResponsiveContainer from "../component/ResponsiveContainer";
-import Main from "./Main/Main";
+import Main from "./Main/Main.page";
 
 export default function Home() {
   return (
