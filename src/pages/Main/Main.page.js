@@ -5,10 +5,14 @@ import { montserrat, notoSansKr } from "../../styles/fonts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaw } from "@fortawesome/free-solid-svg-icons";
 import * as Style from "./Main.styles";
+import dynamic from "next/dynamic";
+const DynamicModal = dynamic(() => import("../../component/Modal/Modal"), {
+  loading: () => <Loading />,
+});
 
-export default function Main() {
+export default function Main({ petNameData }) {
   const [language, setLanguage] = useState("");
-  const [result, setResult] = useState("");
+  const [result, setResult] = useState(petNameData || "");
   const [loading, setLoading] = useState(null);
 
   const petNameInput = useForm({
@@ -37,42 +41,44 @@ export default function Main() {
     };
   };
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
 
-    const isLanguageValid = selectLanguage.validate(
-      (language) => language !== "",
-      "* 필수 선택항목입니다."
-    );
-    const isPetNameValid = petNameInput.validate(
-      (inputValue) => inputValue.pet !== "",
-      "* 필수 입력항목입니다."
-    );
+      const isLanguageValid = selectLanguage.validate(
+        (language) => language !== "",
+        "* 필수 선택항목입니다."
+      );
+      const isPetNameValid = petNameInput.validate(
+        (inputValue) => inputValue.pet !== "",
+        "* 필수 입력항목입니다."
+      );
 
-    if (isPetNameValid && isLanguageValid) {
-      setLoading(true);
-      try {
-        const response = await fetch("/api/generate", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ pet: inputValue.pet, language }),
-        });
+      if (isPetNameValid && isLanguageValid) {
+        setLoading(true);
+        try {
+          const response = await fetch("/api/generate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ pet: inputValue.pet, language }),
+          });
 
-        const data = await response.json();
-        if (response.status !== 200) {
-          throw (
-            data.error ||
-            new Error(`Request failed with status ${response.staus}`)
-          );
+          const data = await response.json();
+          if (!response.ok) {
+            throw new Error(
+              data.error || `Request failed with status ${response.status}`
+            );
+          }
+          setLoading(false);
+          setResult(data.result);
+        } catch (error) {
+          console.error(error);
+          alert(error.message);
         }
-        setLoading(false);
-        setResult(data.result);
-      } catch (error) {
-        console.error(error);
-        alert(error.message);
       }
-    }
-  };
+    },
+    [inputValue.pet, language, selectLanguage, petNameInput]
+  );
 
   return (
     <Style.Wrapper className={notoSansKr.className}>
@@ -125,30 +131,19 @@ export default function Main() {
           <Style.Button type="submit">이름 만들기</Style.Button>
         </Style.Form>
         {(loading || result) && (
-          <Style.Modal>
-            <Style.Result>
-              {loading && Style.LoadingWrapper && (
-                <Style.LoadingWrapper>
-                  <Loading />
-                </Style.LoadingWrapper>
-              )}
-              {result && (
-                <>
-                  <div>
-                    <span>{inputValue.pet}</span>와(과) 어울리는 {text} 이름은!
-                  </div>
-                  <pre>{result}</pre>
-                  {loading ? (
-                    <Loading />
-                  ) : (
-                    <Style.Button onClick={handleModal}>다시 찾기</Style.Button>
-                  )}
-                </>
-              )}
-            </Style.Result>
-          </Style.Modal>
+          <DynamicModal
+            loading={loading}
+            result={result}
+            handleModal={handleModal}
+            inputResult={inputValue.pet}
+            languageText={text}
+          />
         )}
       </Style.Main>
     </Style.Wrapper>
   );
+}
+
+export async function getServerSideProps() {
+  return { props: { petNameData: "" } };
 }
