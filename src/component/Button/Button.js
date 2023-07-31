@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const StyledButton = styled.button`
   /* common */
@@ -13,27 +13,28 @@ const StyledButton = styled.button`
   ${({ width }) =>
     width &&
     css`
-      width: ${width}px;
+      width: ${width};
     `}
 
   /* background color */
   background-color: ${({ theme, color }) =>
     theme.color[color] || theme.color.mainBlue};
-  &:hover,
-  &.select {
-    ${({ theme, hoverColor }) =>
-      hoverColor &&
-      css`
-        background-color: ${theme.color[hoverColor]};
-      `}
-  }
+
+  ${({ theme, $hoverColor }) =>
+    $hoverColor &&
+    css`
+      &:hover,
+      &.select {
+        background-color: ${theme.color[$hoverColor]};
+      }
+    `}
 `;
 
-const Button = ({ children, color, hoverColor, width, ...props }) => {
+const Button = ({ children, color, $hoverColor, width, ...props }) => {
   return (
     <StyledButton
       color={color}
-      hoverColor={hoverColor}
+      $hoverColor={$hoverColor}
       width={width}
       {...props}
     >
