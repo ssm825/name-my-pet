@@ -1,13 +1,19 @@
 import { useCallback, useEffect, useState } from "react";
 import useForm from "../../hooks/useForm";
 import Loading from "../../component/Loading";
+import Button from "../../component/Button/Button";
 import { montserrat, notoSansKr } from "../../styles/fonts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaw } from "@fortawesome/free-solid-svg-icons";
 import * as Style from "./Main.styles";
+
 import dynamic from "next/dynamic";
 const DynamicModal = dynamic(() => import("../../component/Modal/Modal"), {
-  loading: () => <Loading />,
+  loading: () => (
+    <Style.LoadingWrapper>
+      <Loading />
+    </Style.LoadingWrapper>
+  ),
 });
 
 export default function Main({ petNameData }) {
@@ -94,20 +100,26 @@ export default function Main({ petNameData }) {
               한글 또는 영어를 선택해 주세요.
             </Style.ContentTitle>
             <Style.SelectLanguageBox>
-              <Style.SelectLaguageButton
+              <Button
                 type="button"
                 className={text === "한글" ? "select" : ""}
                 onClick={handleText}
+                color="mainGray"
+                $hoverColor="mainBlue"
+                width="48%"
               >
                 한글
-              </Style.SelectLaguageButton>
-              <Style.SelectLaguageButton
+              </Button>
+              <Button
                 type="button"
                 className={text === "영어" ? "select" : ""}
                 onClick={handleText}
+                color="mainGray"
+                $hoverColor="mainBlue"
+                width="48%"
               >
                 영어
-              </Style.SelectLaguageButton>
+              </Button>
             </Style.SelectLanguageBox>
             <Style.Error>
               {selectLanguage.error && <p>{selectLanguage.error}</p>}
@@ -128,7 +140,7 @@ export default function Main({ petNameData }) {
               {petNameInput.error && <p>{petNameInput.error}</p>}
             </Style.Error>
           </article>
-          <Style.Button type="submit">이름 만들기</Style.Button>
+          <Button type="submit">이름 만들기</Button>
         </Style.Form>
         {(loading || result) && (
           <DynamicModal

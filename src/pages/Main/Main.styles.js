@@ -63,24 +63,6 @@ export const SelectLanguageBox = styled.div`
   ${(props) => props.theme.flex("", "space-between", "")};
 `;
 
-export const Button = styled.button`
-  padding: 12px 0;
-  color: white;
-  background-color: ${(props) => props.theme.color.mainBlue};
-  border: none;
-  border-radius: 20px;
-  text-align: center;
-  cursor: pointer;
-`;
-export const SelectLaguageButton = styled(Button)`
-  width: 48%;
-  background-color: ${(props) => props.theme.color.mainGray};
-  &:hover,
-  &.select {
-    background-color: ${(props) => props.theme.color.mainBlue};
-  }
-`;
-
 export const PetDetailInput = styled.input`
   padding: 12px 16px;
   width: 100%;
@@ -137,5 +119,9 @@ export const Result = styled.div`
 
 export const LoadingWrapper = styled.div`
   ${(props) => props.theme.flex("", "center", "center")}
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   min-height: 100px;
 `;

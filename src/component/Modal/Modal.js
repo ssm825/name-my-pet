@@ -1,4 +1,5 @@
 import React, { memo, useMemo } from "react";
+import Button from "../Button/Button";
 import Loading from "../Loading";
 import * as Style from "./Modal.styles";
 
@@ -28,7 +29,7 @@ const Modal = memo(
                 {loading ? (
                   <Loading />
                 ) : (
-                  <Style.Button onClick={handleModal}>다시 찾기</Style.Button>
+                  <Button onClick={handleModal}>다시 찾기</Button>
                 )}
               </>
             )}
