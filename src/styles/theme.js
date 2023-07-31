@@ -1,9 +1,9 @@
 import { css } from "styled-components";
 
 const color = {
-  mainBlue: "#6ebae7",
+  mainBlue: "#4cb2ee",
   mainBlack: "#202123",
-  mainGray: "#d1d1d1",
+  mainGray: "#c0c0c0",
 };
 
 const flex = (direction = "row", justify = "center", align = "center") => css`
