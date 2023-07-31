@@ -1,34 +1,64 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🐾 Name-My-Pet
+- OpenAI를 사용하여 반려동물의 이름을 랜덤으로 생성해 주는 웹 사이트
+- Next.js + OpenAI를 사용해 보고 싶어서 만들어 본 프로젝트입니다.
+- 배포 :  [name-my-pet](https://name-my-pet.vercel.app/)
 
-## Getting Started
+![name_my_pet](https://github.com/ssm825/readmetest/assets/105163878/8178c931-dc2f-4afd-a4b5-df4090ec6c6f)
 
-First, run the development server:
+<br/>
 
+## 실행 방법
 ```bash
-npm run dev
-# or
-yarn dev
+$ git clone https://github.com/ssm825/name-my-pet.git
+$ npm install
+$ npm run dev
 ```
+  
+<br/>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 기술 스택
+<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white"> <img src="https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white"> <img src="https://img.shields.io/badge/styled components-DB7093?style=for-the-badge&logo=styledComponents&logoColor=white"> <img src="https://img.shields.io/badge/vercel-000000?style=for-the-badge&logo=vercel&logoColor=white">
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+<br/>
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## 구현 기능
+- OpenAI를 사용하여 반려동물 랜덤 이름 생성
+  -   useForm 커스텀 훅으로 유효성 검사
+  -   한글 / 영어 이름 option 선택 기능
+  -   재사용할 수 있는 모달 컴포넌트
+- react-responsive 라이브러리로 반응형 웹 구현
 
-## Learn More
+<br/>
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## 프로젝트 구조
+```
+📦src
+ ┣ 📂component
+ ┃ ┣ 📂Button
+ ┃ ┃ ┗ 📜Button.js
+ ┃ ┣ 📂Modal
+ ┃ ┃ ┣ 📜Modal.js
+ ┃ ┃ ┗ 📜Modal.styles.js
+ ┃ ┣ 📜Loading.js
+ ┃ ┗ 📜ResponsiveContainer.js
+ ┣ 📂hooks
+ ┃ ┣ 📜useForm.js
+ ┃ ┗ 📜useResponsive.js
+ ┣ 📂lib
+ ┃ ┗ 📜registry.js
+ ┣ 📂pages
+ ┃ ┣ 📂api
+ ┃ ┃ ┗ 📜generate.page.js
+ ┃ ┣ 📂Main
+ ┃ ┃ ┣ 📜Main.page.js
+ ┃ ┃ ┗ 📜Main.styles.js
+ ┃ ┣ 📜index.page.js
+ ┃ ┣ 📜layout.page.js
+ ┃ ┗ 📜_app.page.js
+ ┗ 📂styles
+ ┃ ┣ 📜fonts.js
+ ┃ ┣ 📜globalStyle.js
+ ┃ ┗ 📜theme.js
+```
+<br/>
