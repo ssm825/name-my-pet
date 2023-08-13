@@ -1,9 +1,17 @@
-import React, { memo, useMemo } from "react";
+import React, { memo, useMemo, FC, ReactElement } from "react";
 import Button from "../Button/Button";
 import Loading from "../Loading";
 import * as Style from "./Modal.styles";
 
-const Modal = memo(
+interface ModalProps {
+  loading: boolean;
+  result: string;
+  handleModal(): void;
+  inputResult?: string;
+  languageText: string;
+}
+
+const Modal: FC<ModalProps> = memo(
   ({ loading, result, handleModal, inputResult, languageText }) => {
     const shouldRender = useMemo(
       () => !!inputResult && !!languageText,

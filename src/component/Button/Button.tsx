@@ -1,6 +1,15 @@
+import React, { FC, ReactElement, ButtonHTMLAttributes } from "react";
 import styled, { css } from "styled-components";
+import { ThemeColor } from "../../styles/theme";
 
-const StyledButton = styled.button`
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  children?: ReactElement | string;
+  color?: keyof ThemeColor;
+  $hoverColor?: keyof ThemeColor;
+  width?: string;
+}
+
+const StyledButton = styled.button<ButtonProps>`
   /* common */
   padding: 12px 0;
   color: white;
@@ -18,7 +27,7 @@ const StyledButton = styled.button`
 
   /* background color */
   background-color: ${({ theme, color }) =>
-    theme.color[color] || theme.color.mainBlue};
+    (color && theme.color[color]) || theme.color.mainBlue};
 
   ${({ theme, $hoverColor }) =>
     $hoverColor &&
@@ -30,7 +39,13 @@ const StyledButton = styled.button`
     `}
 `;
 
-const Button = ({ children, color, $hoverColor, width, ...props }) => {
+const Button: FC<ButtonProps> = ({
+  children,
+  color,
+  $hoverColor,
+  width,
+  ...props
+}) => {
   return (
     <StyledButton
       color={color}

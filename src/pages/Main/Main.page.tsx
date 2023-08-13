@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, FormEvent } from "react";
 import useForm from "../../hooks/useForm";
 import Loading from "../../component/Loading";
 import Button from "../../component/Button/Button";
@@ -16,31 +16,26 @@ const DynamicModal = dynamic(() => import("../../component/Modal/Modal"), {
   ),
 });
 
-export default function Main({ petNameData }) {
-  const [language, setLanguage] = useState("");
-  const [result, setResult] = useState(petNameData || "");
-  const [loading, setLoading] = useState(null);
+export default function Main() {
+  const [language, setLanguage] = useState<string>("");
+  const [result, setResult] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const petNameInput = useForm({
-    pet: "",
-  });
-  const selectLanguage = useForm("");
-
-  const { inputValue, setInputValue, handleChange } = petNameInput;
-  const { text, setText, handleText } = selectLanguage;
+  const petNameInput = useForm({ pet: "" });
+  const selectLanguage = useForm({ language: "" });
 
   useEffect(() => {
-    text === "한글" && setLanguage("korean");
-    text === "영어" && setLanguage("english");
-  }, [text]);
+    selectLanguage.inputValue.language === "한글" && setLanguage("korean");
+    selectLanguage.inputValue.language === "영어" && setLanguage("english");
+  }, [selectLanguage.inputValue.language]);
 
   const handleModal = () => {
     setLoading(true);
     let timer = setTimeout(() => {
       setLoading(false);
     }, 300);
-    setInputValue("");
-    setText("");
+    petNameInput.setInputValue({ pet: "" });
+    selectLanguage.setInputValue({ language: "" });
     setResult("");
     return () => {
       clearTimeout(timer);
@@ -48,11 +43,11 @@ export default function Main({ petNameData }) {
   };
 
   const onSubmit = useCallback(
-    async (e) => {
+    async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
       const isLanguageValid = selectLanguage.validate(
-        (language) => language !== "",
+        (inputValue) => inputValue.language !== "",
         "* 필수 선택항목입니다."
       );
       const isPetNameValid = petNameInput.validate(
@@ -66,7 +61,10 @@ export default function Main({ petNameData }) {
           const response = await fetch("/api/generate", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ pet: inputValue.pet, language }),
+            body: JSON.stringify({
+              pet: petNameInput.inputValue.pet,
+              language: selectLanguage.inputValue.language,
+            }),
           });
 
           const data = await response.json();
@@ -77,13 +75,22 @@ export default function Main({ petNameData }) {
           }
           setLoading(false);
           setResult(data.result);
-        } catch (error) {
-          console.error(error);
-          alert(error.message);
+        } catch (error: unknown) {
+          if (error instanceof Error) {
+            console.error(error);
+            alert(`Error: ${error.message}`);
+          } else {
+            alert(`알 수 없는 에러 : ${error}`);
+          }
         }
       }
     },
-    [inputValue.pet, language, selectLanguage, petNameInput]
+    [
+      petNameInput.inputValue.pet,
+      selectLanguage.inputValue.language,
+      selectLanguage,
+      petNameInput,
+    ]
   );
 
   return (
@@ -102,8 +109,12 @@ export default function Main({ petNameData }) {
             <Style.SelectLanguageBox>
               <Button
                 type="button"
-                className={text === "한글" ? "select" : ""}
-                onClick={handleText}
+                name="language"
+                data-value="한글"
+                className={
+                  selectLanguage.inputValue.language === "한글" ? "select" : ""
+                }
+                onClick={selectLanguage.handleChange}
                 color="mainGray"
                 $hoverColor="mainBlue"
                 width="48%"
@@ -112,8 +123,12 @@ export default function Main({ petNameData }) {
               </Button>
               <Button
                 type="button"
-                className={text === "영어" ? "select" : ""}
-                onClick={handleText}
+                name="language"
+                data-value="영어"
+                className={
+                  selectLanguage.inputValue.language === "영어" ? "select" : ""
+                }
+                onClick={selectLanguage.handleChange}
                 color="mainGray"
                 $hoverColor="mainBlue"
                 width="48%"
@@ -132,8 +147,8 @@ export default function Main({ petNameData }) {
             <Style.PetDetailInput
               type="text"
               name="pet"
-              value={inputValue.pet || ""}
-              onChange={handleChange}
+              value={petNameInput.inputValue.pet || ""}
+              onChange={petNameInput.handleChange}
               placeholder="예시) 꼬리가 통통한 검은 고양이"
             />
             <Style.Error>
@@ -147,15 +162,11 @@ export default function Main({ petNameData }) {
             loading={loading}
             result={result}
             handleModal={handleModal}
-            inputResult={inputValue.pet}
-            languageText={text}
+            inputResult={petNameInput.inputValue.pet}
+            languageText={selectLanguage.inputValue.language}
           />
         )}
       </Style.Main>
     </Style.Wrapper>
   );
-}
-
-export async function getServerSideProps() {
-  return { props: { petNameData: "" } };
 }
