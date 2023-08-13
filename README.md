@@ -17,7 +17,7 @@ $ npm run dev
 <br/>
 
 ## 기술 스택
-<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white"> <img src="https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white"> <img src="https://img.shields.io/badge/styled components-DB7093?style=for-the-badge&logo=styledComponents&logoColor=white"> <img src="https://img.shields.io/badge/vercel-000000?style=for-the-badge&logo=vercel&logoColor=white">
+<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"> <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white"> <img src="https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white"> <img src="https://img.shields.io/badge/styled components-DB7093?style=for-the-badge&logo=styledComponents&logoColor=white"> <img src="https://img.shields.io/badge/vercel-000000?style=for-the-badge&logo=vercel&logoColor=white">
 
 
 <br/>
@@ -28,6 +28,7 @@ $ npm run dev
   -   한글 / 영어 이름 option 선택 기능
   -   재사용할 수 있는 모달 컴포넌트
 - react-responsive 라이브러리로 반응형 웹 구현
+- JavaScript -> TypeScript 변환
 
 <br/>
 
@@ -36,29 +37,27 @@ $ npm run dev
 📦src
  ┣ 📂component
  ┃ ┣ 📂Button
- ┃ ┃ ┗ 📜Button.js
+ ┃ ┃ ┗ 📜Button.tsx
  ┃ ┣ 📂Modal
- ┃ ┃ ┣ 📜Modal.js
- ┃ ┃ ┗ 📜Modal.styles.js
- ┃ ┣ 📜Loading.js
- ┃ ┗ 📜ResponsiveContainer.js
+ ┃ ┃ ┣ 📜Modal.styles.tsx
+ ┃ ┃ ┗ 📜Modal.tsx
+ ┃ ┣ 📜Loading.tsx
+ ┃ ┗ 📜ResponsiveContainer.tsx
  ┣ 📂hooks
- ┃ ┣ 📜useForm.js
- ┃ ┗ 📜useResponsive.js
- ┣ 📂lib
- ┃ ┗ 📜registry.js
+ ┃ ┣ 📜useForm.ts
+ ┃ ┗ 📜useResponsive.ts
  ┣ 📂pages
  ┃ ┣ 📂api
- ┃ ┃ ┗ 📜generate.page.js
+ ┃ ┃ ┗ 📜generate.page.ts
  ┃ ┣ 📂Main
- ┃ ┃ ┣ 📜Main.page.js
- ┃ ┃ ┗ 📜Main.styles.js
- ┃ ┣ 📜index.page.js
- ┃ ┣ 📜layout.page.js
- ┃ ┗ 📜_app.page.js
+ ┃ ┃ ┣ 📜Main.page.tsx
+ ┃ ┃ ┗ 📜Main.styles.tsx
+ ┃ ┣ 📜index.page.tsx
+ ┃ ┣ 📜_app.page.tsx
+ ┃ ┗ 📜_document.page.tsx
  ┗ 📂styles
- ┃ ┣ 📜fonts.js
- ┃ ┣ 📜globalStyle.js
- ┃ ┗ 📜theme.js
+ ┃ ┣ 📜fonts.ts
+ ┃ ┣ 📜globalStyle.ts
+ ┃ ┗ 📜theme.ts
 ```
 <br/>
