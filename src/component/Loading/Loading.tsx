@@ -1,10 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-import styled from "styled-components";
+import * as Style from "./Loading.styles";
 
 const Loading = () => {
   return (
-    <LoadingContent>
+    <Style.LoadingContent>
       <main>
         <FontAwesomeIcon
           icon={faSpinner}
@@ -13,13 +13,8 @@ const Loading = () => {
           style={{ color: "#6ebae7" }}
         />
       </main>
-    </LoadingContent>
+    </Style.LoadingContent>
   );
 };
-
-const LoadingContent = styled.div`
-  ${(props) => props.theme.flex("", "center", "center")}
-  width: 100%;
-`;
 
 export default Loading;

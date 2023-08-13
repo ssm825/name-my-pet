@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState, FormEvent } from "react";
 import useForm from "../../hooks/useForm";
-import Loading from "../../component/Loading";
+import Loading from "../../component/Loading/Loading";
 import Button from "../../component/Button/Button";
 import { montserrat, notoSansKr } from "../../styles/fonts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

@@ -1,51 +1,47 @@
-import React, { memo, useMemo, FC, ReactElement } from "react";
+import React, { FC } from "react";
 import Button from "../Button/Button";
-import Loading from "../Loading";
+import Loading from "../Loading/Loading";
 import * as Style from "./Modal.styles";
 
 interface ModalProps {
-  loading: boolean;
-  result: string;
+  loading?: boolean;
+  result?: string;
   handleModal(): void;
   inputResult?: string;
-  languageText: string;
+  languageText?: string;
 }
 
-const Modal: FC<ModalProps> = memo(
-  ({ loading, result, handleModal, inputResult, languageText }) => {
-    const shouldRender = useMemo(
-      () => !!inputResult && !!languageText,
-      [inputResult, languageText]
-    );
-
-    return (
-      shouldRender && (
-        <Style.Modal>
-          <Style.Result>
-            {loading && Style.LoadingWrapper && (
-              <Style.LoadingWrapper>
-                <Loading />
-              </Style.LoadingWrapper>
+const Modal: FC<ModalProps> = ({
+  loading,
+  result,
+  handleModal,
+  inputResult,
+  languageText,
+}) => {
+  return (
+    <Style.Modal>
+      <Style.Result>
+        {loading && Style.LoadingWrapper && (
+          <Style.LoadingWrapper>
+            <Loading />
+          </Style.LoadingWrapper>
+        )}
+        {result && (
+          <>
+            <div>
+              <span>{inputResult}</span>와(과) 어울리는 {languageText} 이름은!
+            </div>
+            <pre>{result}</pre>
+            {loading ? (
+              <Loading />
+            ) : (
+              <Button onClick={handleModal}>다시 찾기</Button>
             )}
-            {result && (
-              <>
-                <div>
-                  <span>{inputResult}</span>와(과) 어울리는 {languageText}{" "}
-                  이름은!
-                </div>
-                <pre>{result}</pre>
-                {loading ? (
-                  <Loading />
-                ) : (
-                  <Button onClick={handleModal}>다시 찾기</Button>
-                )}
-              </>
-            )}
-          </Style.Result>
-        </Style.Modal>
-      )
-    );
-  }
-);
+          </>
+        )}
+      </Style.Result>
+    </Style.Modal>
+  );
+};
 
 export default Modal;
