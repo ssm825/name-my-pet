@@ -33,10 +33,10 @@ const useForm = (initialValue: InputData): FormType => {
       const target = e.target as HTMLInputElement | HTMLButtonElement;
       const name = target.name;
       const value =
-        (target as HTMLButtonElement).dataset.value ||
-        (target as HTMLInputElement).value;
-
-      if (name && value) {
+        target.type === "text"
+          ? (target as HTMLInputElement).value
+          : (target as HTMLButtonElement).dataset.value;
+      if (name && (value || value === "")) {
         setInputValue((prev) => ({ ...prev, [name]: value }));
         setError("");
       }
