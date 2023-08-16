@@ -35,14 +35,19 @@ $ npm run dev
 ## 프로젝트 구조
 ```
 📦src
- ┣ 📂component
+ ┣ 📂components
  ┃ ┣ 📂Button
+ ┃ ┃ ┣ 📜Button.styles.tsx
  ┃ ┃ ┗ 📜Button.tsx
+ ┃ ┣ 📂Loading
+ ┃ ┃ ┣ 📜Loading.styles.tsx
+ ┃ ┃ ┗ 📜Loading.tsx
  ┃ ┣ 📂Modal
  ┃ ┃ ┣ 📜Modal.styles.tsx
  ┃ ┃ ┗ 📜Modal.tsx
- ┃ ┣ 📜Loading.tsx
- ┃ ┗ 📜ResponsiveContainer.tsx
+ ┃ ┗ 📂ResponsiveContainer
+ ┃ ┃ ┣ 📜ResponsiveContainer.styles.tsx
+ ┃ ┃ ┗ 📜ResponsiveContainer.tsx
  ┣ 📂hooks
  ┃ ┣ 📜useForm.ts
  ┃ ┗ 📜useResponsive.ts
