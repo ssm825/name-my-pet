@@ -1,5 +1,5 @@
 import React, { FC, ReactElement, ButtonHTMLAttributes } from "react";
-import { ThemeColor } from "../../styles/theme";
+import { ThemeColor } from "@/styles/theme";
 import * as Style from "./Button.styles";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

@@ -1,5 +1,5 @@
 import Head from "next/head";
-import ResponsiveContainer from "../component/ResponsiveContainer/ResponsiveContainer";
+import ResponsiveContainer from "@/components/ResponsiveContainer/ResponsiveContainer";
 import Main from "./Main/Main.page";
 
 export default function Home() {

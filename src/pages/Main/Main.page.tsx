@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useState, FormEvent } from "react";
-import useForm from "../../hooks/useForm";
-import Loading from "../../component/Loading/Loading";
-import Button from "../../component/Button/Button";
-import { montserrat, notoSansKr } from "../../styles/fonts";
+import useForm from "@/hooks/useForm";
+import Loading from "@/components/Loading/Loading";
+import Button from "@/components/Button/Button";
+import { montserrat, notoSansKr } from "@/styles/fonts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaw } from "@fortawesome/free-solid-svg-icons";
 import * as Style from "./Main.styles";
 
 import dynamic from "next/dynamic";
-const DynamicModal = dynamic(() => import("../../component/Modal/Modal"), {
+const DynamicModal = dynamic(() => import("@/components/Modal/Modal"), {
   loading: () => (
     <Style.LoadingWrapper>
       <Loading />
@@ -70,12 +70,12 @@ export default function Main() {
           const data = await response.json();
           if (!response.ok) {
             throw new Error(
-              data.error || `Request failed with status ${response.status}`
+              data?.message || `Request failed with status ${response.status}`
             );
           }
           setLoading(false);
           setResult(data.result);
-        } catch (error: unknown) {
+        } catch (error) {
           if (error instanceof Error) {
             console.error(error);
             alert(`Error: ${error.message}`);

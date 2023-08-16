@@ -1,6 +1,6 @@
 import React, { FC } from "react";
-import Button from "../Button/Button";
-import Loading from "../Loading/Loading";
+import Button from "@/components/Button/Button";
+import Loading from "@/components/Loading/Loading";
 import * as Style from "./Modal.styles";
 
 interface ModalProps {

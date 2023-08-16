@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import useResponsive from "../../hooks/useResponsive";
+import useResponsive from "@/hooks/useResponsive";
 import * as Style from "./ResponsiveContainer.styles";
 
 export interface ResponsiveType {
